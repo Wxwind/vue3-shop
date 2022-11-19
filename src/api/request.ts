@@ -8,8 +8,12 @@ const serve = axios.create({
   timeout: 5000,
 });
 
-const request = async <D = any, T = any>(config: AxiosRequestConfig<D>): Promise<MyResponseType<T>> => {
-  const { data } = await serve.request<MyResponseType<T>>(config);
+const request = async <Q = any, D = any>(config: AxiosRequestConfig<Q>): Promise<D> => {
+  //这里拿到的返回值如果被返回拦截器过滤掉了response.data.meta信息，只有response.data.data但是ts仍就以为是
+  //AxiosResponse<MyResponseType<D>类型，所以我们在返回拦截器选择返回整个response
+  const a = await serve.request<MyResponseType<D>, AxiosResponse<MyResponseType<D>>, Q>(config);
+  console.log(a);
+  const { data, meta } = a.data;
   return data;
 };
 
@@ -37,7 +41,8 @@ serve.interceptors.response.use(
 
     console.log(response.data);
     if (meta.status === 200 || meta.status === 201) {
-      return data;
+      //这里选择不过滤meta信息，原因见上面request注释
+      return response;
     } else {
       //服务器内部逻辑输出了非200的状态码
       ElMessage.error(meta.msg);
@@ -48,7 +53,7 @@ serve.interceptors.response.use(
   (error: any) => {
     const { response } = error;
 
-    console.log(response.data);
+    console.log(response);
     if (response) {
       // 请求已发出且收到回复，但不是2xx
       errorHandle(response.status);
@@ -56,6 +61,7 @@ serve.interceptors.response.use(
     } else {
       //断网，没收到回复
       ElMessage.warning("网络连接异常,请稍后再试!");
+      return Promise.reject(new Error("网络连接异常,请稍后再试!"));
     }
   }
 );

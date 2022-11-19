@@ -13,10 +13,11 @@ export const useLoginStore = defineStore("main", {
   actions: {
     async login(userInfo: LoginRequest) {
       let r = await loginAPI(userInfo);
-      router.replace("/");
-      let token = r.data.token;
+      let token = r.token;
       this.token = token;
       localStorage.setItem("token", token);
+      router.replace("/");
+      console.log("set token");
       return;
     },
   },

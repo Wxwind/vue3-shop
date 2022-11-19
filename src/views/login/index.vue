@@ -27,8 +27,8 @@ import type { FormInstance, FormRules } from "element-plus";
 import { useLoginStore } from '@/stores/loginStore';
 const loginStore = useLoginStore();
 const form = ref({
-  username: "",
-  password: "",
+  username: "admin",
+  password: "123456",
 });
 
 const rules = reactive<FormRules>({
