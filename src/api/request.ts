@@ -2,30 +2,46 @@ import axios, { type AxiosResponse, type AxiosRequestConfig } from "axios";
 import { ElMessage } from "element-plus";
 import type { MyResponseType } from "@/types/index";
 import { router } from "@/router";
+import { IsTokenExpired } from "@/utils/auth";
+import { useLoginStore } from "@/stores/loginStore";
+import { setTokenTime } from "@/utils/auth";
 
 const serve = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 5000,
 });
 
-const request = async <Q = any, D = any>(config: AxiosRequestConfig<Q>): Promise<D> => {
+export const request = async <Q = any, D = any>(config: AxiosRequestConfig<Q>): Promise<MyResponseType<D>> => {
   //这里拿到的返回值如果被返回拦截器过滤掉了response.data.meta信息，只有response.data.data但是ts仍就以为是
-  //AxiosResponse<MyResponseType<D>类型，所以我们在返回拦截器选择返回整个response
+  //AxiosResponse<MyResponseType<D>类型;
+  //所以我们在返回拦截器选择返回整个response，
+  //而且我们比如会在收到服务器错误信息如输出密码后改变UI;
+  //所以返回值为 MyResponseType<D> 让应用层能访问到错误信息
   const a = await serve.request<MyResponseType<D>, AxiosResponse<MyResponseType<D>>, Q>(config);
-  console.log(a);
   const { data, meta } = a.data;
-  return data;
+  return { data, meta };
 };
-
-export default request;
 
 //请求拦截器
 serve.interceptors.request.use(
   (config) => {
-    if (config?.headers?.["Authorization"]) {
+    console.log(`发送消息`);
+    console.log(config);
+    if (localStorage.getItem("token")) {
+      if (IsTokenExpired()) {
+        //token过期，返回主页
+        const store = useLoginStore();
+        console.log("登出");
+        store.logout();
+        return Promise.reject(new Error("token失效,请重新登录"));
+      } else {
+        setTokenTime();
+        console.log("刷新token" + Date.now());
+      }
+    }
+    if (config?.headers) {
       config.headers["Authorization"] = localStorage.getItem("token");
     }
-    console.log(config.data);
     return config;
   },
   (error: any) => {
@@ -39,7 +55,8 @@ serve.interceptors.response.use(
   (response: AxiosResponse<MyResponseType<any>>) => {
     const { data, meta } = response.data;
 
-    console.log(response.data);
+    console.log(`收到消息`);
+    console.log(response);
     if (meta.status === 200 || meta.status === 201) {
       //这里选择不过滤meta信息，原因见上面request注释
       return response;
@@ -53,15 +70,15 @@ serve.interceptors.response.use(
   (error: any) => {
     const { response } = error;
 
-    console.log(response);
+    console.log(error);
     if (response) {
       // 请求已发出且收到回复，但不是2xx
       errorHandle(response.status);
       return Promise.reject(response.data);
     } else {
-      //断网，没收到回复
-      ElMessage.warning("网络连接异常,请稍后再试!");
-      return Promise.reject(new Error("网络连接异常,请稍后再试!"));
+      //token失效
+      ElMessage.warning("Token失效,请重新登陆");
+      return Promise.reject(new Error("Token失效,请重新登陆"));
     }
   }
 );

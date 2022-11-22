@@ -17,7 +17,6 @@ const props = defineProps({
   },
   size: {
     type: Number,
-    default: "",
   },
 });
 const iconName = computed(() => `#icon-${props.name}`);

@@ -12,6 +12,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
     },
   },
   server: {
@@ -21,6 +22,17 @@ export default defineConfig({
         target: "https://lianghj.top:8888/api/private/v1/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""), // 不可以省略rewrite
+      },
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+        @import "@/styles/variables.scss";
+        @import "@/styles/mixin.scss";
+        
+        `,
       },
     },
   },

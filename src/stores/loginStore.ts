@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
-import { default as loginAPI } from "@/api/login";
+import { login as loginAPI } from "@/api/login";
 import { router } from "@/router";
 import type { LoginRequest } from "@/types";
+import { setTokenTime } from "@/utils/auth";
 
-export const useLoginStore = defineStore("main", {
+export const useLoginStore = defineStore("loginStore", {
   state: () => ({
     token: localStorage.getItem("token") || "",
   }),
@@ -13,12 +14,18 @@ export const useLoginStore = defineStore("main", {
   actions: {
     async login(userInfo: LoginRequest) {
       let r = await loginAPI(userInfo);
-      let token = r.token;
+      let token = r.data.token;
       this.token = token;
       localStorage.setItem("token", token);
+      setTokenTime();
       router.replace("/");
-      console.log("set token");
       return;
+    },
+    logout() {
+      this.token = "";
+      localStorage.setItem("token", "");
+      localStorage.clear();
+      router.replace("/login");
     },
   },
 });

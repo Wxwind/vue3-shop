@@ -2,7 +2,7 @@
   <div class="login-container">
     <el-form ref="formRef" class="login-form" :model="form" :rules="rules">
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t("login.title") }}</h3>
       </div>
       <el-form-item prop="username">
         <svg-icon name="user" class="svg-container" :size="15"></svg-icon>
@@ -11,8 +11,12 @@
       <el-form-item prop="password">
         <svg-icon name="password" class="svg-container" :size="15"></svg-icon>
         <el-input v-model="form.password" placeholder="Please input" :type="passwordType" />
-        <svg-icon :name="passwordType === 'password' ? 'eye' : 'eye-open'" class=" svg-container" :size="15"
-          @click="changeType">
+        <svg-icon
+          :name="passwordType === 'password' ? 'eye' : 'eye-open'"
+          class="svg-container"
+          :size="15"
+          @click="changeType"
+        >
         </svg-icon>
         <!-- <el-input v-model="form.password" placeholder="Please input" type="password" show-password /> -->
       </el-form-item>
@@ -24,7 +28,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
-import { useLoginStore } from '@/stores/loginStore';
+import { useLoginStore } from "@/stores/loginStore";
 const loginStore = useLoginStore();
 const form = ref({
   username: "admin",
@@ -52,9 +56,8 @@ const loginHandler = () => {
   formRef.value?.validate(async (valid: any) => {
     if (valid) {
       try {
-        const res = await loginStore.login(form.value);
-      }
-      catch (err) {
+        await loginStore.login(form.value);
+      } catch (err) {
         console.log(err);
       }
     } else {
@@ -67,8 +70,7 @@ const passwordType = ref("password");
 const changeType = () => {
   if (passwordType.value === "password") {
     passwordType.value = "text";
-  }
-  else {
+  } else {
     passwordType.value = "password";
   }
 };
@@ -115,7 +117,6 @@ $cursor: #fff;
       input {
         background: transparent;
         border: 0px;
-        -webkit-appearance: none;
         border-radius: 0px;
         padding: 12px 5px 12px 15px;
         color: $light_gray;
