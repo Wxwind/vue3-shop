@@ -11,11 +11,11 @@
   >
     <el-sub-menu :index="item.id.toString()" v-for="(item, index) in menuList" :key="item.id">
       <template #title>
-        <el-icon> <component :is="iconList[index]"></component> </el-icon>
+        <el-icon><component :is="iconList[index]"></component></el-icon>
         <span>{{ $t(`menus.${item.path}`) }}</span>
       </template>
       <el-menu-item :index="'/' + it.path" v-for="it in item.children" :key="item.id">
-        <el-icon> <component :is="icon"></component> </el-icon>
+        <el-icon><component :is="icon"></component></el-icon>
         <span>{{ $t(`menus.${it.path}`) }}</span>
       </el-menu-item>
     </el-sub-menu>
