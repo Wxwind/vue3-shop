@@ -2,7 +2,7 @@ import { i18n } from "@/localization";
 
 const t = i18n.global.t;
 
-export const steps = [
+export const steps = () => [
   {
     element: "#guide",
     popover: {

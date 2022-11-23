@@ -16,9 +16,29 @@ export default {
     btnTitle: "login",
   },
   dialog: {
+    doSucceed: "succeed",
+    doFailed: "failed",
     deleteTitle: "Are you sure you want to delete the user ",
+    username: "username",
+    password: "password",
+    email: "email",
+    mobile: "mobile",
+    cancel: "cancel",
+    confirm: "confirm",
+    formrules: {
+      username_null: "user name cannot be null",
+      password_null: "password cannot be null",
+      email_null: "email cannot be null",
+      email_illegal: "email format is illegal",
+      mobile_null: "mobil cannot be null",
+    },
+    formtypes: {
+      adduser: "add user",
+      edituser: "edit user",
+    },
   },
   table: {
+    id: "id",
     username: "username",
     email: "email",
     mobile: "mobile",
@@ -32,6 +52,7 @@ export default {
   },
   message: {
     updeteSuccess: "update successfully",
+    addUserWrongForm: "wrong input,check your input please",
   },
   driver: {
     doneBtnText: "done",

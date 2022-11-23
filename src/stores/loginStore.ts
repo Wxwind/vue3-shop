@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { login as loginAPI } from "@/api/login";
 import { router } from "@/router";
-import type { LoginRequest } from "@/types";
+import type { LoginRequest } from "@/api/types";
 import { setTokenTime } from "@/utils/auth";
 
 export const useLoginStore = defineStore("loginStore", {

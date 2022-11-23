@@ -11,6 +11,7 @@ import svgIcon from "./icons/svgIcon.vue";
 import "@/router/permission";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import { i18n } from "@/localization";
+import { filterTimes } from "@/utils/filtertime";
 
 const pinia = createPinia();
 
@@ -19,3 +20,5 @@ app.use(router).use(ElementPlus).use(pinia).use(i18n).component("svgIcon", svgIc
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
+
+app.config.globalProperties.$fliters = { filterTimes };

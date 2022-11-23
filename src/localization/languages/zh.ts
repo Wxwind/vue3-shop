@@ -16,13 +16,33 @@ export default {
     btnTitle: "登录",
   },
   dialog: {
+    doSucceed: "操作成功",
+    doFailed: "操作失败",
     deleteTitle: "确定要删除用户",
+    username: "用户名",
+    password: "密码",
+    email: "邮箱地址",
+    mobile: "手机号",
+    cancel: "取消",
+    confirm: "确认",
+    formrules: {
+      username_null: "用户名不能为空",
+      password_null: "密码不能为空",
+      email_null: "邮箱不能为空",
+      email_illegal: "不合法的邮箱地址",
+      mobile_null: "手机号不能为空",
+    },
+    formtypes: {
+      adduser: "添加用户",
+      edituser: "编辑用户",
+    },
   },
   table: {
+    id: "编号",
     username: "姓名",
     email: "邮箱",
-    mobile: "手机",
-    role_name: "角色",
+    mobile: "手机号",
+    role_name: "角色名",
     mg_state: "状态",
     create_time: "创建时间",
     action: "操作",
@@ -32,6 +52,7 @@ export default {
   },
   message: {
     updeteSuccess: "更新成功",
+    addUserWrongForm: "请检查输入",
   },
   driver: {
     doneBtnText: "完成",

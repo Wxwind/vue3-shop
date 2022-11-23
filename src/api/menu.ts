@@ -1,4 +1,4 @@
-import type { MenuItem } from "@/types";
+import type { MenuItem } from "@/api/types";
 import { request } from "./request";
 
 export const getMenuList = () => {
@@ -8,4 +8,4 @@ export const getMenuList = () => {
   });
 };
 
-export type { MenuItem } from "@/types";
+export type { MenuItem } from "@/api/types";

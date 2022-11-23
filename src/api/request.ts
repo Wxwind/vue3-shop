@@ -1,6 +1,6 @@
 import axios, { type AxiosResponse, type AxiosRequestConfig } from "axios";
 import { ElMessage } from "element-plus";
-import type { MyResponseType } from "@/types/index";
+import type { MyResponseType } from "@/api/types";
 import { router } from "@/router";
 import { IsTokenExpired } from "@/utils/auth";
 import { useLoginStore } from "@/stores/loginStore";
@@ -36,7 +36,6 @@ serve.interceptors.request.use(
         return Promise.reject(new Error("token失效,请重新登录"));
       } else {
         setTokenTime();
-        console.log("刷新token" + Date.now());
       }
     }
     if (config?.headers) {
@@ -87,6 +86,9 @@ function errorHandle(status: number) {
   switch (status) {
     case 302:
       ElMessage.error("接口重定向了！");
+      break;
+    case 304:
+      ElMessage.error("内容未改变，请求被重定向到客户端本地缓存");
       break;
     case 400:
       ElMessage.error("发出的请求有错误，服务器没有进行新建或修改数据的操作==>" + status);

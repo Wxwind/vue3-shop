@@ -16,8 +16,7 @@
           class="svg-container"
           :size="15"
           @click="changeType"
-        >
-        </svg-icon>
+        ></svg-icon>
         <!-- <el-input v-model="form.password" placeholder="Please input" type="password" show-password /> -->
       </el-form-item>
       <el-button type="primary" class="login-button" @click="loginHandler">登录</el-button>
@@ -39,14 +38,14 @@ const rules = reactive<FormRules>({
   username: [
     {
       required: true,
-      message: "Please select Activity zone",
+      message: "请输入用户名",
       trigger: "blur",
     },
   ],
   password: [
     {
       required: true,
-      message: "Please select Activity zone",
+      message: "请输入密码",
       trigger: "blur",
     },
   ],

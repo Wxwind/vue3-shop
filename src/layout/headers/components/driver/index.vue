@@ -32,14 +32,12 @@ const initDriver = () => {
     stageBackground: "#ffffff", // Background color for the staged behind highlighted element
     nextBtnText: t("driver.nextBtnText"), // Next button text for this step
     prevBtnText: t("driver.prevBtnText"), // Previous button text for this step
-    showButtons: true, // Do not show control buttons in footer
-    keyboardControl: true, // Allow controlling through keyboard (escape to close, arrow keys to move)
-    scrollIntoViewOptions: {}, // We use `scrollIntoView()` when possible, pass here the options for it if you want any
   });
 };
 
 const handleGuide = () => {
-  driver.defineSteps(steps);
+  //steps声明成一个函数是因为每次切换语言要刷新里面的文本
+  driver.defineSteps(steps());
   driver.start();
 };
 
