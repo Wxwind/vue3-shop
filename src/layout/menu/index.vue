@@ -6,7 +6,6 @@
     text-color="#fff"
     router
     unique-opened
-    style="--el-menu-bg-color: menuBg"
     :collapse="!navStore.isNavOpen"
   >
     <el-sub-menu :index="item.id.toString()" v-for="(item, index) in menuList" :key="item.id">
@@ -44,4 +43,4 @@ const initMenuList = async () => {
 
 initMenuList();
 </script>
-<style scoped></style>
+<style scoped lang="scss"></style>

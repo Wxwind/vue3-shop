@@ -7,7 +7,7 @@
       <el-button type="primary" :icon="Search">{{ $t("table.search") }}</el-button>
       <el-button type="primary" @click="handleDialogueValue('adduser', null)">{{ $t("table.adduser") }}</el-button>
     </el-row>
-    <el-table :data="tableData" style="width: 100%">
+    <el-table :data="tableData" style="width: 100%" stripe border>
       <el-table-column
         :prop="item.prop"
         :label="$t(`table.${item.label}`)"
@@ -45,14 +45,14 @@
     v-model="dialogVisible"
     :title="dialogTitle"
     :dialogType="dialogType"
-    @initGetUserList="initGetUserList"
+    @initGetUserList="initUserList"
     :dialogTableValue="dialogTableValue"
   ></Diadlog>
 </template>
 
 <script setup lang="ts">
 import { Search, Edit, Setting, Delete } from "@element-plus/icons-vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { getUsers, changeUserState, deleteUser } from "@/api/user";
 import { options } from "./options";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -65,6 +65,10 @@ const queryForm = ref({
   query: "",
   pagenum: 1,
   pagesize: 10,
+});
+
+onMounted(() => {
+  initUserList();
 });
 
 const tableData = ref<any>([]);
@@ -85,7 +89,7 @@ const dialogTableValue = ref<
   | {}
 >({});
 
-const initGetUserList = async () => {
+const initUserList = async () => {
   const res = await getUsers(queryForm.value);
   tableData.value = res.data.users;
   total.value = res.data.total;
@@ -94,14 +98,13 @@ const initGetUserList = async () => {
 const handleSizeChange = (pageSize: number) => {
   queryForm.value.pagenum = 1;
   queryForm.value.pagesize = pageSize;
-  initGetUserList();
+  initUserList();
 };
 
 const handleCurrentChange = (pageNum: number) => {
   queryForm.value.pagenum = pageNum;
-  initGetUserList();
+  initUserList();
 };
-initGetUserList();
 
 const changeState = async (info: any) => {
   await changeUserState(info.id, info.mg_state);
@@ -141,7 +144,7 @@ const deleteuser = (row: any) => {
         type: "success",
         message: t("dialog.doSucceed"),
       });
-      initGetUserList();
+      initUserList();
     })
     .catch(() => {
       ElMessage({
@@ -160,7 +163,11 @@ const deleteuser = (row: any) => {
 
 :deep(.el-pagination) {
   padding-top: 16px;
-  box-sizing: border-box;
-  text-align: right;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
 }
 </style>

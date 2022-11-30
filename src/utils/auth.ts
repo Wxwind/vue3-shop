@@ -1,5 +1,5 @@
 const TOKEN_TIME = "tokentime";
-const TOKEN_TIME_VALUE = 2 * 60 * 60 * 1000; //2h
+const TOKEN_TIME_VALUE = 24 * 60 * 60 * 1000; //24h
 
 export const setTokenTime = () => {
   localStorage.setItem(TOKEN_TIME, Date.now().toString());

@@ -50,6 +50,12 @@ export default {
     adduser: "添加用户",
     placeholder: "请输入搜索的用户姓名",
   },
+  rightTable: {
+    id: "编号",
+    authname: "权限",
+    path: "路径",
+    level: "权限等级",
+  },
   message: {
     updeteSuccess: "更新成功",
     addUserWrongForm: "请检查输入",

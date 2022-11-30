@@ -1,6 +1,7 @@
-export type { LoginRequest, LoginResponse } from "./login";
-export type { MenuItem } from "./menu/menu";
+export * from "./login";
+export * from "./menu";
 export * from "./user";
+export * from "./right";
 
 export interface MyResponseType<T> {
   meta: {

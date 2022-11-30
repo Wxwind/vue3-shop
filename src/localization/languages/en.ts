@@ -50,6 +50,12 @@ export default {
     adduser: "add user",
     placeholder: "Please enter a user name to search for",
   },
+  rightTable: {
+    id: "id",
+    authname: "authname",
+    path: "path",
+    level: "level",
+  },
   message: {
     updeteSuccess: "update successfully",
     addUserWrongForm: "wrong input,check your input please",

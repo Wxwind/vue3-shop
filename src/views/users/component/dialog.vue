@@ -2,16 +2,16 @@
   <el-dialog :model-value="dialogVisible" :title="title" width="40%" @close="handleClose">
     <el-form ref="formRef" :model="form" label-width="90px" :rules="rules">
       <el-form-item :label="$t('dialog.username')" prop="username" v-if="props.dialogType == 'adduser'">
-        <el-input v-model="form.username" placeholder="用户名" />
+        <el-input v-model="form.username" :placeholder="$t('dialog.username')" />
       </el-form-item>
       <el-form-item :label="$t('dialog.password')" prop="password" v-if="props.dialogType == 'adduser'">
-        <el-input v-model="form.password" placeholder="密码" type="password" />
+        <el-input v-model="form.password" :placeholder="$t('dialog.password')" type="password" />
       </el-form-item>
       <el-form-item :label="$t('dialog.email')" prop="email">
-        <el-input v-model="form.email" placeholder="邮箱地址" />
+        <el-input v-model="form.email" :placeholder="$t('dialog.email')" />
       </el-form-item>
       <el-form-item :label="$t('dialog.mobile')" prop="mobile">
-        <el-input v-model="form.mobile" placeholder="手机号" />
+        <el-input v-model="form.mobile" :placeholder="$t('dialog.mobile')" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -25,7 +25,6 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import type { addUserRequest } from "@/api/types";
 import { addUser, editUser } from "@/api/user";
 import { ElMessage, type FormInstance, type FormRules } from "element-plus";
 import { i18n } from "@/localization";
@@ -59,21 +58,24 @@ const form = ref({
 });
 const formRef = ref<FormInstance>();
 
+const isNullType = (a: object): a is {} => {
+  return Object.keys(a).length === 0;
+};
+
 watch(
   () => {
     props.dialogTableValue;
   },
   () => {
-    form.value =
-      JSON.stringify(props.dialogTableValue) === "{}"
-        ? {
-            id: 0,
-            username: "",
-            password: "",
-            email: "",
-            mobile: "",
-          }
-        : props.dialogTableValue;
+    form.value = isNullType(props.dialogTableValue)
+      ? {
+          id: 0,
+          username: "",
+          password: "",
+          email: "",
+          mobile: "",
+        }
+      : props.dialogTableValue;
   },
   { deep: true, immediate: true }
 );
@@ -92,7 +94,6 @@ const handleConfirm = async () => {
             await addUser(form.value);
             break;
           case "edituser":
-            console.log(form.value);
             await editUser(form.value);
             break;
           default:
