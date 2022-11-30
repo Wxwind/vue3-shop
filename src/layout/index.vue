@@ -38,7 +38,7 @@ const asideWidth = computed(() => {
   overflow: hidden;
   background-color: $menuBg;
 
-  .el-menu {
+  :deep(.el-menu) {
     background-color: $menuBg;
     border: none;
     height: 100%;
