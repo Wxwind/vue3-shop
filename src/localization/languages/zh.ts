@@ -17,20 +17,23 @@ export default {
   },
   dialog: {
     doSucceed: "操作成功",
-    doFailed: "操作失败",
-    deleteTitle: "确定要删除用户",
+    doFailed: "取消操作",
+    deleteTitle: "是否删除？",
     username: "用户名",
     password: "密码",
     email: "邮箱地址",
     mobile: "手机号",
     cancel: "取消",
     confirm: "确认",
+    roleName: "角色名",
+    roleDesc: "角色描述",
     formrules: {
       username_null: "用户名不能为空",
       password_null: "密码不能为空",
       email_null: "邮箱不能为空",
       email_illegal: "不合法的邮箱地址",
       mobile_null: "手机号不能为空",
+      roleName_null: "角色名不能为空",
     },
     formtypes: {
       adduser: "添加用户",
@@ -56,6 +59,14 @@ export default {
     path: "路径",
     level: "权限等级",
   },
+  roleTable: {
+    roleId: "编号",
+    roleName: "角色名",
+    roleDesc: "描述",
+    action: "操作",
+    createrole: "创建角色",
+    editrole: "修改角色信息",
+  },
   message: {
     updeteSuccess: "更新成功",
     addUserWrongForm: "请检查输入",
@@ -68,5 +79,11 @@ export default {
     guideBtn: "引导按钮",
     hamburgerBtn: "汉堡按钮",
     fullScreenBtn: "全屏按钮",
+  },
+  action: {
+    editRole: "编辑角色",
+    editRight: "编辑权限",
+    deleteRole: "删除角色",
+    addRole: "创建角色",
   },
 };

@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { getRightList } from "@/api/right";
-import type { RightItem } from "@/api/types";
+import type { RightListItem } from "@/api/types";
 import { options } from "./options";
 import { ref, onMounted } from "vue";
 
@@ -28,7 +28,7 @@ onMounted(() => {
   initRightList();
 });
 
-const tableData = ref<RightItem[]>();
+const tableData = ref<RightListItem[]>();
 
 const initRightList = async () => {
   const res = await getRightList("list");
@@ -44,7 +44,7 @@ const levelNumToTxt = (p: "0" | "1" | "2"): { text: string; type: String } => {
       return { text: "二级", type: "success" };
 
     case "2":
-      return { text: "三级", type: "info" };
+      return { text: "三级", type: "warning" };
   }
 };
 </script>

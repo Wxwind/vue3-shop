@@ -8,6 +8,7 @@ import { createSvg } from "./src/icons/svgIcon";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/",
   plugins: [vue(), createSvg("./src/icons/svg/")],
   resolve: {
     alias: {
@@ -22,7 +23,7 @@ export default defineConfig({
       "/api": {
         target: "https://lianghj.top:8888/api/private/v1/",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), // 不可以省略rewrite
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
@@ -32,7 +33,7 @@ export default defineConfig({
       "/api": {
         target: "https://lianghj.top:8888/api/private/v1/",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), // 不可以省略rewrite
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

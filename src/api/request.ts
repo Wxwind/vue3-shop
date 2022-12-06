@@ -11,11 +11,15 @@ const serve = axios.create({
   timeout: 5000,
 });
 
+/**
+ * @type Q post请求的数据类型
+ * @type D 回应的消息中data的类型
+ */
 export const request = async <Q = any, D = any>(config: AxiosRequestConfig<Q>): Promise<MyResponseType<D>> => {
   //这里拿到的返回值如果被返回拦截器过滤掉了response.data.meta信息，只有response.data.data但是ts仍就以为是
   //AxiosResponse<MyResponseType<D>类型;
   //所以我们在返回拦截器选择返回整个response，
-  //而且我们比如会在收到服务器错误信息如输出密码后改变UI;
+  //而且我们比如会在收到服务器错误信息如输错密码后改变UI;
   //所以返回值为 MyResponseType<D> 让应用层能访问到错误信息
   const a = await serve.request<MyResponseType<D>, AxiosResponse<MyResponseType<D>>, Q>(config);
   const { data, meta } = a.data;
@@ -33,7 +37,7 @@ serve.interceptors.request.use(
         const store = useLoginStore();
         console.log("登出");
         store.logout();
-        return Promise.reject(new Error("token失效,请重新登录"));
+        return Promise.reject(new Error("客户端token失效,请重新登录"));
       } else {
         setTokenTime();
       }
@@ -60,8 +64,15 @@ serve.interceptors.response.use(
       //这里选择不过滤meta信息，原因见上面request注释
       return response;
     } else {
-      //服务器内部逻辑输出了非200的状态码
       ElMessage.error(meta.msg);
+      if (meta.status === 400 && meta.msg == "无效token") {
+        //服务端token失效
+        const store = useLoginStore();
+        console.log("登出");
+        store.logout();
+        return data;
+      }
+      //服务器内部逻辑输出了非200的状态码
       return Promise.reject(new Error(meta.msg));
     }
   },
@@ -75,9 +86,11 @@ serve.interceptors.response.use(
       errorHandle(response.status);
       return Promise.reject(response.data);
     } else {
-      //token失效
-      ElMessage.warning("Token失效,请重新登陆");
-      return Promise.reject(new Error("Token失效,请重新登陆"));
+      //服务端token失效或者断网
+      ElMessage.warning("无法连接至服务器");
+      const store = useLoginStore();
+      store.logout();
+      return Promise.reject(new Error("无法连接至服务器"));
     }
   }
 );

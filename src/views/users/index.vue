@@ -24,7 +24,7 @@
         <template v-slot="{ row }" #default v-else-if="item.prop === 'action'">
           <el-button size="small" type="primary" :icon="Edit" @click="handleDialogueValue('edituser', row)"></el-button>
           <el-button size="small" type="warning" :icon="Setting"></el-button>
-          <el-button size="small" type="danger" :icon="Delete" @click="deleteuser(row)"></el-button>
+          <el-button size="small" type="danger" :icon="Delete" @click="openDeleteUserMsgBox(row)"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -115,7 +115,6 @@ const changeState = async (info: any) => {
 };
 
 const handleDialogueValue = (mode: string, row: any) => {
-  console.log(row);
   dialogType.value = mode;
   switch (mode) {
     case "adduser":
@@ -132,7 +131,7 @@ const handleDialogueValue = (mode: string, row: any) => {
   dialogVisible.value = true;
 };
 
-const deleteuser = (row: any) => {
+const openDeleteUserMsgBox = (row: any) => {
   ElMessageBox.confirm(t("dialog.deleteTitle"), "Warning", {
     confirmButtonText: t("dialog.confirm"),
     cancelButtonText: t("dialog.cancel"),
