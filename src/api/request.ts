@@ -86,11 +86,11 @@ serve.interceptors.response.use(
       errorHandle(response.status);
       return Promise.reject(response.data);
     } else {
-      //服务端token失效或者断网
-      ElMessage.warning("无法连接至服务器");
+      //服务端token失效
+      ElMessage.warning("访问服务器被拒绝");
       const store = useLoginStore();
       store.logout();
-      return Promise.reject(new Error("无法连接至服务器"));
+      return Promise.reject(new Error("访问服务器被拒绝"));
     }
   }
 );

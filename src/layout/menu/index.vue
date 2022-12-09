@@ -43,4 +43,9 @@ const initMenuList = async () => {
 
 initMenuList();
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.el-menu-item {
+  background-color: #304156;
+  padding: 0px;
+}
+</style>

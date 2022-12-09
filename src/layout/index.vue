@@ -1,6 +1,6 @@
 <template>
   <el-container class="app-container">
-    <el-aside class="sidebar-container" style="--el-aside-width: asideWidth"><Menu /></el-aside>
+    <el-aside class="sidebar-container" style="--el-aside-width: {{asideWidth}}"><Menu /></el-aside>
     <el-container class="container" :class="{ hidderContainer: !navStore.isNavOpen }">
       <el-header><Headers /></el-header>
       <el-main><router-view /></el-main>

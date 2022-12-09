@@ -7,6 +7,7 @@
     </el-row>
 
     <el-table :data="tableData" style="width: 100%" stripe border>
+      <!--展开栏的权限数据-->
       <el-table-column type="expand">
         <template v-slot="{ row }">
           <el-row
@@ -53,6 +54,8 @@
           </el-row>
         </template>
       </el-table-column>
+
+      <!--角色数据-->
       <el-table-column
         :prop="item.prop"
         :label="$t(`roleTable.${item.label}`)"

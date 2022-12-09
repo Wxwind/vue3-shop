@@ -6,7 +6,7 @@ const langStore = useLangStore();
 
 const { lang } = storeToRefs(langStore);
 
-export const watchLang = (...args: (() => void)[]) => {
+export const watchLang = (...args: ((newLang: string) => void)[]) => {
   watch(
     () => {
       return lang.value;
@@ -14,7 +14,7 @@ export const watchLang = (...args: (() => void)[]) => {
     () => {
       console.log("刷新driver");
       args.forEach((cb) => {
-        cb();
+        cb(lang.value);
       });
     }
   );

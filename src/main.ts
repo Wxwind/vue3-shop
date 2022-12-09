@@ -12,11 +12,13 @@ import "@/router/permission";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import { i18n } from "@/localization";
 import { filterTimes } from "@/utils/filtertime";
+import DataVVue3 from "@kjgl77/datav-vue3";
 
 const pinia = createPinia();
 
 const app = createApp(App);
-app.use(router).use(ElementPlus).use(pinia).use(i18n).component("svgIcon", svgIcon).mount("#app");
+app.use(router).use(pinia).use(i18n).use(DataVVue3).component("svgIcon", svgIcon).mount("#app");
+app.use(ElementPlus);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }

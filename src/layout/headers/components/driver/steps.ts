@@ -7,7 +7,7 @@ export const steps = () => [
     element: "#guide",
     popover: {
       title: t("driver.guideBtn"),
-      description: "Body of the popover",
+      description: t("driver.guideBtnDesc"),
       position: "left",
     },
   },
@@ -15,7 +15,7 @@ export const steps = () => [
     element: "#hamburger", //
     popover: {
       title: t("driver.hamburgerBtn"),
-      description: "Body of the popover",
+      description: t("driver.hamburgerDesc"),
       position: "bottom",
     },
   },
@@ -23,7 +23,7 @@ export const steps = () => [
     element: "#screenFull",
     popover: {
       title: t("driver.fullScreenBtn"),
-      description: "Body of the popover",
+      description: t("driver.fullScreenDesc"),
       position: "left",
     },
   },

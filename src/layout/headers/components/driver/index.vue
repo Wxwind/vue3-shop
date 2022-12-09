@@ -41,7 +41,7 @@ const handleGuide = () => {
   driver.start();
 };
 
-watchLang(() => {
+watchLang((newLang) => {
   initDriver();
 });
 </script>

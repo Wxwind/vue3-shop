@@ -11,9 +11,9 @@ export function getRightList(type: "list" | "tree"): Promise<MyResponseType<Righ
 }
 
 export function editRightList(roleId: number, rightIds: string) {
-  return request<string, null>({
+  return request<{ rids: string }, null>({
     url: `roles/${roleId}/rights`,
     method: "POST",
-    data: rightIds,
+    data: { rids: rightIds },
   });
 }

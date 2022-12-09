@@ -27,6 +27,7 @@ export default {
     confirm: "确认",
     roleName: "角色名",
     roleDesc: "角色描述",
+    cateName: "分类名称",
     formrules: {
       username_null: "用户名不能为空",
       password_null: "密码不能为空",
@@ -34,6 +35,7 @@ export default {
       email_illegal: "不合法的邮箱地址",
       mobile_null: "手机号不能为空",
       roleName_null: "角色名不能为空",
+      cateName_null: "分类名称不能为空",
     },
     formtypes: {
       adduser: "添加用户",
@@ -67,6 +69,13 @@ export default {
     createrole: "创建角色",
     editrole: "修改角色信息",
   },
+  categoryTable: {
+    cat_id: "编号",
+    cat_name: "商品名",
+    cat_level: "层级",
+    action: "操作",
+    addCategory: "添加分类",
+  },
   message: {
     updeteSuccess: "更新成功",
     addUserWrongForm: "请检查输入",
@@ -77,13 +86,18 @@ export default {
     nextBtnText: "下一步",
     prevBtnText: "上一步",
     guideBtn: "引导按钮",
+    guideBtnDesc: "查看教程",
     hamburgerBtn: "汉堡按钮",
+    hamburgerDesc: "展开/伸缩侧栏",
     fullScreenBtn: "全屏按钮",
+    fullScreenDesc: "进入/退出全屏",
   },
   action: {
     editRole: "编辑角色",
     editRight: "编辑权限",
     deleteRole: "删除角色",
     addRole: "创建角色",
+    editCateItem: "编辑",
+    deleteCateItem: "删除",
   },
 };

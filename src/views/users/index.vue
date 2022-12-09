@@ -2,9 +2,16 @@
   <el-card>
     <el-row :gutter="20" class="header">
       <el-col :span="7">
-        <el-input :placeholder="$t('table.placeholder')" clearable v-model="queryForm.query"></el-input>
+        <el-input
+          :placeholder="$t('table.placeholder')"
+          clearable
+          v-model="queryForm.query"
+          @clear="initUserList()"
+        ></el-input>
       </el-col>
-      <el-button type="primary" :icon="Search">{{ $t("table.search") }}</el-button>
+      <el-button type="primary" :icon="Search" @click="initUserList()">
+        {{ $t("table.search") }}
+      </el-button>
       <el-button type="primary" @click="handleDialogueValue('adduser', null)">{{ $t("table.adduser") }}</el-button>
     </el-row>
     <el-table :data="tableData" style="width: 100%" stripe border>
@@ -35,7 +42,7 @@
       :small="false"
       :disabled="false"
       :background="false"
-      layout="total, sizes, prev, pager, next, jumper"
+      layout=" total,sizes,prev, pager, next, jumper"
       :total="total"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
